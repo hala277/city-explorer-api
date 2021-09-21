@@ -103,7 +103,7 @@ function getWeather(request, response) {
     // data. datetime
     // data.min_temp,data.max_temp,data.weather.description
 
-    let weatherLink = `http://api.weatherbit.io/v2.0/forecast/daily?city=${searchQ2}&key=14f0d4e856674b01b84e102604cb999d`
+    let weatherLink = `http://api.weatherbit.io/v2.0/forecast/daily?city=${searchQ2}&key=${process.env.KEY}`
     console.log(weatherLink);
     console.log('before req')
 
