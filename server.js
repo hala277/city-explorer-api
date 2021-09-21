@@ -56,6 +56,7 @@ let weatherInfo = weatherData.find((item)=> {
 })
 
 
+
 server.get('*',(request,response) => {
     response.status(404).send('404 not found')
 })
