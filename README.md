@@ -21,12 +21,12 @@
 ## Credit and Collaborations
 <!-- Give credit (and a link) to other people or resources that helped you build this application. -->
 
-Name of feature: ________________________________
+Name of feature: ___________hala_____________________
 
-Estimate of time needed to complete: _____
+Estimate of time needed to complete: ___4 hour__
 
-Start time: _____
+Start time: __3:00pm___
 
-Finish time: _____
+Finish time: __4:00pm the next day___
 
 Actual time needed to complete: _____
