@@ -110,6 +110,8 @@ class Forecast {
 
         this.date = data.datetime;
         this.description = data.weather.description;
+        this.low_temp = data.low_temp;
+        this.max_temp = data.max_temp;
     }
 
 }
@@ -119,7 +121,7 @@ class Movies {
     constructor(data){
         // title,overview,vote_average,vote_count,
         // poster_path,popularity,released_on
-        
+
         this.title = data.title;
         this.overview = data.overview;
         this.vote_average = data.vote_average;
