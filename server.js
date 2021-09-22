@@ -11,7 +11,7 @@ const axios = require('axios')
 const server = express();
 const PORT = process.env.PORT;
 server.use(cors());
-// const weatherData = require('./data/weather.json')
+//  const weatherData = require('./data/weather.json')
 
 
 
@@ -79,7 +79,7 @@ server.use(cors());
 
 // Routes
 server.get('/', home);
-server.get('/getWeather', getWeather)
+server.get('/getWeather', getWeatherH)
 server.get('/test', test);
 server.get('*', notFound);
 
@@ -91,38 +91,42 @@ function home(request, response) {
 
 }
 
-// localhost:3001/getWeather?searchQ=Amman
-function getWeather(request, response) {
-    response.send('incide test ')
-    let searchQ2 = request.query.searchQ;
-    // i need key,city name,Weather station ID
+// i need key,city name,Weather station ID
     // key = 14f0d4e856674b01b84e102604cb999d
     // url http://api.weatherbit.io/v2.0/forecast/daily?city=Amman&key=API_KEY
     // days=[integer] up to 16 days but i only need 3
     // city_name
-    // data. datetime
+    // data.datetime
     // data.min_temp,data.max_temp,data.weather.description
+
+
+// localhost:3001/getWeather?city=Amman
+function getWeatherH(request, response) {
+    // response.send('incide test ')
+    let searchQ2 = request.query.city;
+    console.log(request.query)
+    //  console.log(searchQ2);
+    
 
     let weatherLink = `http://api.weatherbit.io/v2.0/forecast/daily?city=${searchQ2}&key=${process.env.KEY}`
     console.log(weatherLink);
-    console.log('before req')
+    // console.log('before req')
 
-    axios
-    .get(weatherLink).then(weatherResult => {
-        console.log('incide req');
-        let weatherf = weatherResult.data.result.map(info => {
+    axios.get(weatherLink).then(weatherResult => {
+        // console.log(weatherResult);
+        // console.log(weatherResult.data);
+        let weatherf = weatherResult.data.data.map(info => {
             return new Forecast(info)
-        })
-        response.send(weatherf)   
+        });
+        response.send(weatherf);   
     })   
     .catch(error =>{
         response.send(error)
-    }) 
+    });
     
-    console.log('after req')
+    //  console.log('after req')
    
     
-   
 }
 
 function test(request, response) {
@@ -134,17 +138,19 @@ function notFound(request, response) {
 }
 
 
-server.listen(PORT, () => {
-    console.log(`PORT is working ${PORT}`)
-})
+
 
 //  class
 class Forecast {
 
     constructor(data) {
 
-        this.date = data.date;
-        this.description = data.description;
+        this.date = data.datetime;
+        this.description = data.weather.description;
     }
 
 }
+
+server.listen(PORT, () => {
+    console.log(`PORT is working ${PORT}`)
+})
