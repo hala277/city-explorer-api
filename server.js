@@ -7,6 +7,8 @@ const cors = require('cors');
 const express = require('express');
 require('dotenv').config();
 const axios = require('axios')
+const axios1 = require('axios')
+
 // try to inti the server here so it will be have properities and methods in express
 const server = express();
 const PORT = process.env.PORT;
@@ -15,71 +17,10 @@ server.use(cors());
 
 
 
-
-
-
-
-
-
-// const weatherData = require('./data/weather.json')
-
-
-
-
-// make another localhost with/
-// server.get('/', (request, response) => {
-
-//     // always call the response here
-//     // status(200) to add ok and if its not working i shold change the PORT
-//     response.status(200).send('home route')
-
-// })
-
-// handell the request from the clinet
-//  localhost:3001/test
-// server.get('/test', (request, response) => {
-//     response.send('every thing is working')
-// })
-
-
-//  localhost:3001/weather?city=Amman
-// for  weather server
-// server.get('/weather', (request, response) => {
-//     //   response.send(weatherData);
-
-//     let searchQuery = request.query.city;
-
-
-
-//     let weatherInfo = weatherData.find((item) => {
-//         if (item.city_name === searchQuery) {
-//             return item;
-//         }
-
-//     })
-
-
-//     let weatherf = weatherInfo.data.map(info => new Forecast
-//         (`date: ${info.datetime}`,
-//             `description:  low of ${info.low_temp},high of ${info.max_temp} with ${info.weather.description} `));
-//     console.log(weatherf);
-//     response.send(weatherf);
-
-
-// })
-
-// new code here
-// things i need to add to my code
-//  i have to sabreate  routes and function handlers
-//  i need to use axios ,"npm i axios" don't forget async,await with it or just using then 
-//  what should the req look like localhous:3001/weather?city= &key
-
-
-
-
 // Routes
 server.get('/', home);
 server.get('/getWeather', getWeatherH)
+server.get('/getMovies', getMoviesH)
 server.get('/test', test);
 server.get('*', notFound);
 
@@ -90,15 +31,6 @@ function home(request, response) {
     response.status(200).send('home route')
 
 }
-
-// i need key,city name,Weather station ID
-    // key = 14f0d4e856674b01b84e102604cb999d
-    // url http://api.weatherbit.io/v2.0/forecast/daily?city=Amman&key=API_KEY
-    // days=[integer] up to 16 days but i only need 3
-    // city_name
-    // data.datetime
-    // data.min_temp,data.max_temp,data.weather.description
-
 
 // localhost:3001/getWeather?city=Amman
 function getWeatherH(request, response) {
@@ -128,6 +60,37 @@ function getWeatherH(request, response) {
    
     
 }
+//  
+// localhost:3001/getMovies?query=Amman
+function getMoviesH(request, response) {
+    // response.send('incide test ')
+    console.log("hiiiiiiiiiiiiiiiiiii")
+    let searchQ = request.query.query;
+    console.log(request.query)
+    //  console.log(searchQ2);
+    
+
+     let MoviesLink = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.MOVIE_API_KEY}&query=${searchQ}`
+     console.log(MoviesLink);
+    //  console.log('before req')
+
+    axios.get(MoviesLink).then(moviesResult => {
+        //  console.log(moviesResult);
+        //  console.log(moviesResult.data);
+
+        let move = moviesResult.data.results.map(info => {
+            return new Movies(info)
+        });
+        response.send(move);   
+    })   
+    .catch(error =>{
+        response.send(error)
+    });
+    
+    // //  console.log('after req')
+   
+    
+}
 
 function test(request, response) {
     response.send('every thing is working')
@@ -150,6 +113,22 @@ class Forecast {
     }
 
 }
+
+class Movies {
+
+    constructor(data){
+        // title,overview,vote_average,vote_count,
+        // poster_path,popularity,released_on
+        
+        this.title = data.title;
+        this.overview = data.overview;
+        this.vote_average = data.vote_average;
+        this.vote_count = data.vote_count;
+        this.poster_path= data.poster_path;
+        this.popularity = data.popularity;
+        this.release_date = data.release_date;
+    }
+} 
 
 server.listen(PORT, () => {
     console.log(`PORT is working ${PORT}`)
