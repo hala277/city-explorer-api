@@ -21,7 +21,7 @@
 ## Credit and Collaborations
 <!-- Give credit (and a link) to other people or resources that helped you build this application. -->
 
-Name of feature: ___________hala_____________________
+Name of feature: ___________add weather API server_____________________
 
 Estimate of time needed to complete: ___4 hour__
 
@@ -30,3 +30,15 @@ Start time: __3:00pm___
 Finish time: __4:00pm the next day___
 
 Actual time needed to complete: _____
+
+---------------------
+
+Name of feature: ___________APIs and therd party weather,movies_____________________
+
+Estimate of time needed to complete: ___3 hour__
+
+Start time: __12:00pm___
+
+Finish time: __2:00pm ___
+
+Actual time needed to complete: __1 hour and50m___
