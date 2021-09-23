@@ -41,4 +41,16 @@ Start time: __12:00pm___
 
 Finish time: __2:00pm ___
 
-Actual time needed to complete: __1 hour and50m___
+Actual time needed to complete: __1 hour and50m__
+
+---------------------
+
+Name of feature: ___________Add Modules_____________________
+
+Estimate of time needed to complete: ___3 hour__
+
+Start time: __1:00pm ___
+
+Finish time: __3:00pm ___
+
+Actual time needed to complete: __1 hour__
