@@ -17,6 +17,8 @@ const getWeatherH = require('./modules/weather')
 const server = express();
 const PORT = process.env.PORT;
 server.use(cors());
+
+
 //  const weatherData = require('./data/weather.json')
 
 

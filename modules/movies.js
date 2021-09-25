@@ -1,4 +1,6 @@
 const axios = require('axios');
+let cacheMemory = {};
+console.log(cacheMemory);
 //  const { query } = require('express');
 
 function getMoviesH (request, response) {
@@ -12,19 +14,29 @@ function getMoviesH (request, response) {
      const MoviesLink = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.MOVIE_API_KEY}&query=${query}`
     //  console.log(MoviesLink);
     //  console.log('before req')
-
+    
+    if(cacheMemory[query] !== undefined ){
+        console.log('the cach contain data')
+        console.log(cacheMemory);
+        response.send(cacheMemory[query]);
+    }
+    else{
+        console.log('cach memory is empty hit the api')
+       
     axios.get(MoviesLink).then(moviesResult => {
         //   console.log(moviesResult);
         //   console.log(moviesResult.data);
     //    console.log(moviesResult);
         let move = moviesResult.data.results.map(info => new Movies(info));
        
+        cacheMemory[query] = move;
         response.send(move);   
        
     })   
     .catch(error =>{
         response.send(error)
     });
+}
 }
     // //  console.log('after req')
     class Movies {
